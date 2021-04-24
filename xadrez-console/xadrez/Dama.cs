@@ -23,6 +23,18 @@ namespace xadrez
 
             Posicao pos = new Posicao(0, 0);
 
+            //esquerda
+            pos.DefinirValores(Posicao.Linha, Posicao.Coluna - 1);
+            while (tab.PosicaoValida(pos) && PodeMover(pos))
+            {
+                mat[pos.Linha, pos.Coluna] = true;
+                if (tab.peca(pos) != null && tab.peca(pos).Cor != Cor)
+                {
+                    break;
+                }
+                pos.DefinirValores(pos.Linha, pos.Coluna - 1);
+            }
+
             //acima
             pos.DefinirValores(Posicao.Linha - 1, Posicao.Coluna);
             while (tab.PosicaoValida(pos) && PodeMover(pos))
@@ -32,7 +44,7 @@ namespace xadrez
                 {
                     break;
                 }
-                pos.Linha = pos.Linha - 1;
+                pos.DefinirValores(pos.Linha - 1, pos.Coluna);
             }
             //abaixo
             pos.DefinirValores(Posicao.Linha + 1, Posicao.Coluna);
@@ -43,7 +55,7 @@ namespace xadrez
                 {
                     break;
                 }
-                pos.Linha = pos.Linha + 1;
+                pos.DefinirValores(pos.Linha + 1, pos.Coluna);
             }
             //direita
             pos.DefinirValores(Posicao.Linha, Posicao.Coluna + 1);
@@ -54,18 +66,7 @@ namespace xadrez
                 {
                     break;
                 }
-                pos.Coluna = pos.Coluna + 1;
-            }
-            //esquerda
-            pos.DefinirValores(Posicao.Linha, Posicao.Coluna - 1);
-            while (tab.PosicaoValida(pos) && PodeMover(pos))
-            {
-                mat[pos.Linha, pos.Coluna] = true;
-                if (tab.peca(pos) != null && tab.peca(pos).Cor != Cor)
-                {
-                    break;
-                }
-                pos.Coluna = pos.Coluna - 1;
+                pos.DefinirValores(pos.Linha,pos.Coluna + 1);
             }
 
             //NO
@@ -90,7 +91,7 @@ namespace xadrez
                 {
                     break;
                 }
-                pos.DefinirValores(Posicao.Linha - 1, Posicao.Coluna + 1);
+                pos.DefinirValores(pos.Linha - 1, pos.Coluna + 1);
             }
 
             //SE
@@ -104,6 +105,7 @@ namespace xadrez
                 }
                 pos.DefinirValores(Posicao.Linha + 1, Posicao.Coluna + 1);
             }
+
             //SO
             pos.DefinirValores(Posicao.Linha + 1, Posicao.Coluna - 1);
             while (tab.PosicaoValida(pos) && PodeMover(pos))
@@ -113,7 +115,7 @@ namespace xadrez
                 {
                     break;
                 }
-                pos.DefinirValores(Posicao.Linha + 1, Posicao.Coluna - 1);
+                pos.DefinirValores(pos.Linha + 1, pos.Coluna - 1);
             }
 
             return mat;
